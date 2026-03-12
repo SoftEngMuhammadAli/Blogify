@@ -19,13 +19,6 @@
     "description": {
       "type": "richtext"
     },
-    "image": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": [
-        "images"
-      ]
-    },
     "categories": {
       "type": "relation",
       "relation": "manyToMany",

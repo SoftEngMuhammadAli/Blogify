@@ -1,20 +1,18 @@
-"use client";
-
+import Link from "next/link";
 import React from "react";
 
-interface CategoryProps {
-  title: string;
-}
-
-const Category: React.FC<CategoryProps> = ({ title }) => {
+const Category = ({ id, title, active }: any) => {
   return (
-    <button
-      className="whitespace-nowrap px-4 py-2 rounded-full border border-zinc-300 dark:border-zinc-700 
-      bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 
-      text-sm font-medium transition"
+    <Link
+      href={id ? `/?category=${id}` : "/"}
+      className={`whitespace-nowrap px-4 py-2 rounded-full border transition text-sm font-medium ${
+        active
+          ? "border-blue-600 bg-blue-600 "
+          : "border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-900 dark:text-zinc-100"
+      }`}
     >
       {title}
-    </button>
+    </Link>
   );
 };
 

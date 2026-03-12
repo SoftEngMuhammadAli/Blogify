@@ -1,22 +1,18 @@
 import React from "react";
 import Category from "./Category";
 
-const Categories = () => {
-  const categories = [
-    "Technology",
-    "Programming",
-    "Design",
-    "AI",
-    "Startups",
-    "Business",
-    "Tutorials",
-  ];
-
+const Categories = ({ categories, activeCategory }: any) => {
   return (
     <div className="w-full overflow-x-auto pb-4">
       <div className="flex gap-3 w-max">
-        {categories.map((cat, index) => (
-          <Category key={index} title={cat} />
+        <Category title="All" active={!activeCategory} />
+        {categories?.data?.map((cat: any) => (
+          <Category
+            key={cat.id}
+            id={cat.documentId}
+            title={cat.title}
+            active={activeCategory === cat.documentId}
+          />
         ))}
       </div>
     </div>

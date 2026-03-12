@@ -2,32 +2,66 @@ import Blogs from "./components/Blogs";
 import Categories from "./components/Categories";
 
 async function fetchCategories() {
-  const options = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
-    },
-  };
+  try {
+    const res = await fetch(`http://127.0.0.1:1337/api/categories`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
+      },
+      cache: "no-store",
+    });
 
-  const res = await fetch(
-    `${process.env.STRAPI_API_TOKEN}/api/categories`,
-    options,
-  );
-  const data = await res.json();
-  return data;
+    if (!res.ok) throw new Error("Failed to fetch categories");
+
+    return await res.json();
+  } catch (error) {
+    console.error("Categories fetch error:", error);
+    return { data: [] };
+  }
 }
 
-export default function Home() {
+async function fetchBlogs(category?: string) {
+  try {
+    const url = category
+      ? `http://127.0.0.1:1337/api/blogs?filters[categories][documentId][$eq]=${category}&populate=*`
+      : `http://127.0.0.1:1337/api/blogs?populate=*`;
+
+    const res = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
+      },
+      cache: "no-store",
+    });
+
+    if (!res.ok) throw new Error("Failed to fetch blogs");
+
+    return await res.json();
+  } catch (error) {
+    console.error("Blogs fetch error:", error);
+    return { data: [] };
+  }
+}
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string }>;
+}) {
+  const { category } = await searchParams;
+  const categories = await fetchCategories();
+  const blogs = await fetchBlogs(category);
+
   return (
     <div className="space-y-10">
       {/* Categories */}
       <section>
-        <Categories />
+        <Categories categories={categories} activeCategory={category} />
       </section>
 
       {/* Blog List */}
       <section>
-        <Blogs />
+        <Blogs blogs={blogs} />
       </section>
     </div>
   );

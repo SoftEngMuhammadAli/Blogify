@@ -2,37 +2,39 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-interface BlogCardProps {
-  title?: string;
-  description?: string;
-  image?: string;
-}
-
-const BlogCard: React.FC<BlogCardProps> = ({
-  title = "Title of Blog",
-  description = "Description of blog goes here. It explains what the article is about.",
-  image = "/app-assets/vercel.svg",
-}) => {
+const BlogCard = ({ id, title, image, description }: any) => {
   return (
-    <Link href={`/blog/1`}>
-      <div className="group bg-white dark:bg-zinc-900 rounded-xl overflow-hidden border border-zinc-200 dark:border-zinc-700 hover:shadow-lg transition duration-300 cursor-pointer">
+    <Link href={`/blog/${id}`} className="block group">
+      <article className="relative overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+        {/* Image */}
         <div className="relative w-full h-48 overflow-hidden">
           <Image
-            src={image}
+            src={image || "/app-assets/vercel.svg"}
             alt={title}
             fill
-            className="object-cover group-hover:scale-105 transition duration-300"
+            className="object-fit transition-transform duration-500 group-hover:scale-105"
           />
         </div>
 
-        <div className="p-4 space-y-2">
-          <h2 className="text-lg font-semibold line-clamp-2">{title}</h2>
+        {/* Content */}
+        <div className="p-5 space-y-3">
+          <h2 className="text-lg font-semibold text-zinc-900 dark:text-white line-clamp-2 group-hover:text-blue-600 transition">
+            {title}
+          </h2>
 
-          <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3">
+          <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3">
             {description}
           </p>
+
+          {/* Read More */}
+          <div className="flex items-center text-sm font-medium text-blue-600 pt-2">
+            Read article
+            <span className="ml-2 transition-transform group-hover:translate-x-1">
+              →
+            </span>
+          </div>
         </div>
-      </div>
+      </article>
     </Link>
   );
 };
