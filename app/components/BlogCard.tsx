@@ -2,31 +2,38 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const BlogCard = ({ title, description, image }: any) => {
+interface BlogCardProps {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const BlogCard: React.FC<BlogCardProps> = ({
+  title = "Title of Blog",
+  description = "Description of blog goes here. It explains what the article is about.",
+  image = "/app-assets/vercel.svg",
+}) => {
   return (
-    <div className="rounded-lg shadow-md p-4 mb-4 cursor-pointer overflow-hidden border border-gray-600 ">
-      <Link href={`/blog/${1}`}>
-        <div className="blog-image">
+    <Link href={`/blog/1`}>
+      <div className="group bg-white dark:bg-zinc-900 rounded-xl overflow-hidden border border-zinc-200 dark:border-zinc-700 hover:shadow-lg transition duration-300 cursor-pointer">
+        <div className="relative w-full h-48 overflow-hidden">
           <Image
-            className="w-full h-48 object-fit rounded-lg mb-2 border-b border-gray-600"
-            src={"/app-assets/vercel.svg"}
-            alt={"title"}
-            width={500}
-            height={500}
+            src={image}
+            alt={title}
+            fill
+            className="object-cover group-hover:scale-105 transition duration-300"
           />
         </div>
-        <div className="blog-content">
-          <div className="blog-title">
-            <h2 className="font-size-lg font-semibold mb-2 overflow-hidden text-ellipsis line-clamp-2">
-              title of blog
-            </h2>
-          </div>
-          <div className="blog-description overflow-hidden text-ellipsis line-clamp-5">
-            description of blog
-          </div>
+
+        <div className="p-4 space-y-2">
+          <h2 className="text-lg font-semibold line-clamp-2">{title}</h2>
+
+          <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3">
+            {description}
+          </p>
         </div>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 };
 

@@ -2,14 +2,19 @@
 
 import React from "react";
 
-const Category = () => {
+interface CategoryProps {
+  title: string;
+}
+
+const Category: React.FC<CategoryProps> = ({ title }) => {
   return (
-    <div
-      onClick={() => {}}
-      className="bg-zinc-100 dark:bg-zinc-800 max-w-full px-4 py-2 rounded-full cursor-pointer"
+    <button
+      className="whitespace-nowrap px-4 py-2 rounded-full border border-zinc-300 dark:border-zinc-700 
+      bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 
+      text-sm font-medium transition"
     >
-      TITILE
-    </div>
+      {title}
+    </button>
   );
 };
 

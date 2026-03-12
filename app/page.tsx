@@ -3,17 +3,15 @@ import Categories from "./components/Categories";
 
 export default function Home() {
   return (
-    <div>
-      {/* Categories Section */}
+    <div className="space-y-10">
+      {/* Categories */}
       <section>
         <Categories />
       </section>
 
-      {/* Blogs Section */}
+      {/* Blog List */}
       <section>
-        <div>
-          <Blogs />
-        </div>
+        <Blogs />
       </section>
     </div>
   );
