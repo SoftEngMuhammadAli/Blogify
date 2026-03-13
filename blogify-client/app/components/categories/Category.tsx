@@ -1,7 +1,13 @@
 import Link from "next/link";
 import React from "react";
 
-const Category = ({ id, title, active }: any) => {
+interface CategoryProps {
+  id?: string;
+  title: string;
+  active: boolean;
+}
+
+const Category = ({ id, title, active }: CategoryProps) => {
   return (
     <Link
       href={id ? `/?category=${id}` : "/"}
