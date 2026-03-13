@@ -12,32 +12,27 @@ interface BlogCardProps {
 const BlogCard = ({ id, title, image, description }: BlogCardProps) => {
   return (
     <Link href={`/blog/${id}`} className="block group">
-      <article className="relative overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-        {/* Image */}
+      <article className="card relative overflow-hidden p-0 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
         <div className="relative w-full h-48 overflow-hidden">
           <Image
-            src={image || "/app-assets/vercel.svg"}
+            src="/app-assets/vercel.svg"
             alt={title}
             fill
-            className="object-fit transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         </div>
 
-        {/* Content */}
         <div className="p-5 space-y-3">
-          <h2 className="text-lg font-semibold text-zinc-900 dark:text-white line-clamp-2 group-hover:text-blue-600 transition">
+          <h2 className="line-clamp-2 text-lg font-semibold text-zinc-900 transition group-hover:text-blue-600">
             {title}
           </h2>
 
-          <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3">
-            {description}
-          </p>
+          <p className="line-clamp-3 text-sm text-zinc-600">{description}</p>
 
-          {/* Read More */}
-          <div className="flex items-center text-sm font-medium text-blue-600 pt-2">
+          <div className="link-primary flex items-center pt-2">
             Read article
             <span className="ml-2 transition-transform group-hover:translate-x-1">
-              →
+              {"->"}
             </span>
           </div>
         </div>

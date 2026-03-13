@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -25,11 +26,32 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-black`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          {children}
-        </main>
+        <div className="min-h-screen">
+          {/* <header className="sticky top-0 z-20 border-b border-blue-100/80 bg-white/80 backdrop-blur">
+            <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+              <Link href="/" className="text-lg font-black tracking-tight text-zinc-900">
+                Blogify
+              </Link>
+              <nav className="flex items-center gap-2">
+                <Link href="/" className="btn-secondary px-3 py-1.5 text-xs sm:text-sm">
+                  Home
+                </Link>
+                <Link
+                  href="/blogs/manage"
+                  className="btn-primary px-3 py-1.5 text-xs sm:text-sm"
+                >
+                  Manage Blogs
+                </Link>
+              </nav>
+            </div>
+          </header> */}
+
+          <main className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );
