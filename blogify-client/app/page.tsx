@@ -1,5 +1,5 @@
-import Blogs from "./components/Blogs";
-import Categories from "./components/Categories";
+import Blogs from "./components/blogs/Blogs";
+import Categories from "./components/categories/Categories";
 
 async function fetchCategories() {
   try {

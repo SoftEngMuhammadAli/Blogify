@@ -57,6 +57,15 @@ const BlogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
       {/* Blog Content */}
       <div className="mt-6 space-y-3">
+        <div className="relative w-full h-48 overflow-hidden">
+          <Image
+            src={"/app-assets/vercel.svg"}
+            alt={"title"}
+            fill
+            className="object-fit transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
+
         <h1 className="text-2xl md:text-4xl font-bold leading-tight">
           {blogData?.title}
         </h1>
