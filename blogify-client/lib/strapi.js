@@ -1,4 +1,4 @@
-import axios from "axios";
+﻿import axios from "axios";
 
 const strapiBaseUrl =
   process.env.STRAPI_URL ||
@@ -15,14 +15,10 @@ export const strapiClient = axios.create({
   },
 });
 
-export function getAxiosErrorMessage(
-  error: unknown,
-  fallback = "Request failed",
-) {
+export function getAxiosErrorMessage(error, fallback = "Request failed") {
   if (axios.isAxiosError(error)) {
     return (
-      (error.response?.data as { error?: { message?: string } } | undefined)
-        ?.error?.message ||
+      error.response?.data?.error?.message ||
       error.response?.statusText ||
       error.message ||
       fallback

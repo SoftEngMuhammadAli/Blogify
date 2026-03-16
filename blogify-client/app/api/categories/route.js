@@ -1,4 +1,4 @@
-import { fetchCategories } from "@/lib/blog-api";
+﻿import { fetchCategories } from "@/lib/blog-api";
 import { getAxiosErrorMessage } from "@/lib/strapi";
 import { NextResponse } from "next/server";
 

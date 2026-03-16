@@ -1,23 +1,19 @@
-import { BlogMutationPayload, createBlog, fetchBlogs } from "@/lib/blog-api";
+﻿import { createBlog, fetchBlogs } from "@/lib/blog-api";
 import { getAxiosErrorMessage } from "@/lib/strapi";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-function sanitizeCategoryIds(value: unknown): string[] {
+function sanitizeCategoryIds(value) {
   if (!Array.isArray(value)) return [];
 
   return value.filter(
-    (item): item is string => typeof item === "string" && item.trim().length > 0,
+    (item) => typeof item === "string" && item.trim().length > 0,
   );
 }
 
-function parseBlogPayload(body: unknown): BlogMutationPayload | null {
+function parseBlogPayload(body) {
   if (!body || typeof body !== "object") return null;
 
-  const payload = body as {
-    title?: unknown;
-    description?: unknown;
-    categoryIds?: unknown;
-  };
+  const payload = body;
 
   if (typeof payload.title !== "string" || payload.title.trim().length === 0) {
     return null;
@@ -31,7 +27,7 @@ function parseBlogPayload(body: unknown): BlogMutationPayload | null {
   };
 }
 
-export async function GET(request: NextRequest) {
+export async function GET(request) {
   try {
     const category = request.nextUrl.searchParams.get("category") || undefined;
     const blogs = await fetchBlogs(category);
@@ -44,7 +40,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(request) {
   try {
     const body = await request.json();
     const payload = parseBlogPayload(body);
@@ -65,3 +61,5 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+

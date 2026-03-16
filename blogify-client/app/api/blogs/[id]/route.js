@@ -1,45 +1,28 @@
-import {
-  BlogMutationPayload,
-  deleteBlog,
-  fetchBlogById,
-  updateBlog,
-} from "@/lib/blog-api";
+﻿import { deleteBlog, fetchBlogById, updateBlog } from "@/lib/blog-api";
 import { getAxiosErrorMessage } from "@/lib/strapi";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-function sanitizeCategoryIds(value: unknown): string[] {
+function sanitizeCategoryIds(value) {
   if (!Array.isArray(value)) return [];
 
-  return value.filter(
-    (item): item is string => typeof item === "string" && item.trim().length > 0,
-  );
+  return value.filter((item) => typeof item === "string" && item.trim().length > 0);
 }
 
-function parseBlogPayload(body: unknown): BlogMutationPayload | null {
+function parseBlogPayload(body) {
   if (!body || typeof body !== "object") return null;
 
-  const payload = body as {
-    title?: unknown;
-    description?: unknown;
-    categoryIds?: unknown;
-  };
-
-  if (typeof payload.title !== "string" || payload.title.trim().length === 0) {
+  if (typeof body.title !== "string" || body.title.trim().length === 0) {
     return null;
   }
 
   return {
-    title: payload.title,
-    description:
-      typeof payload.description === "string" ? payload.description : "",
-    categoryIds: sanitizeCategoryIds(payload.categoryIds),
+    title: body.title,
+    description: typeof body.description === "string" ? body.description : "",
+    categoryIds: sanitizeCategoryIds(body.categoryIds),
   };
 }
 
-export async function GET(
-  _request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function GET(_request, { params }) {
   try {
     const { id } = await params;
     const blog = await fetchBlogById(id);
@@ -52,10 +35,7 @@ export async function GET(
   }
 }
 
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function PUT(request, { params }) {
   try {
     const { id } = await params;
     const body = await request.json();
@@ -78,10 +58,7 @@ export async function PUT(
   }
 }
 
-export async function DELETE(
-  _request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function DELETE(_request, { params }) {
   try {
     const { id } = await params;
     await deleteBlog(id);

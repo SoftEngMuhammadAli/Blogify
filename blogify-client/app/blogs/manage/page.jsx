@@ -1,4 +1,4 @@
-import { fetchBlogs } from "@/lib/blog-api";
+﻿import { fetchBlogs } from "@/lib/blog-api";
 import Link from "next/link";
 
 const ManageBlogsPage = async () => {
@@ -37,10 +37,7 @@ const ManageBlogsPage = async () => {
               </p>
 
               <div className="flex gap-3">
-                <Link
-                  href={`/blog/${blog.documentId}`}
-                  className="link-primary"
-                >
+                <Link href={`/blog/${blog.documentId}`} className="link-primary">
                   View
                 </Link>
                 <Link

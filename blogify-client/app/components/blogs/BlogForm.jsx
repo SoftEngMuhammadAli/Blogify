@@ -1,34 +1,22 @@
-"use client";
+﻿"use client";
 
-import { CategoryItem } from "@/lib/blog-api";
-import axios from "axios";
-import Link from "next/link";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { FormEvent, useMemo, useState } from "react";
-
-interface BlogFormProps {
-  mode: "create" | "update";
-  blogId?: string;
-  categories: CategoryItem[];
-  initialValues?: {
-    title: string;
-    description: string;
-    categoryIds: string[];
-  };
-}
+import Link from "next/link";
+import axios from "axios";
 
 const BlogForm = ({
   mode,
   blogId,
   categories,
   initialValues,
-}: BlogFormProps) => {
+}) => {
   const router = useRouter();
   const [title, setTitle] = useState(initialValues?.title ?? "");
   const [description, setDescription] = useState(
     initialValues?.description ?? "",
   );
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(
+  const [selectedCategories, setSelectedCategories] = useState(
     initialValues?.categoryIds ?? [],
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -39,7 +27,7 @@ const BlogForm = ({
     [mode],
   );
 
-  function toggleCategory(documentId: string) {
+  function toggleCategory(documentId) {
     setSelectedCategories((prev) =>
       prev.includes(documentId)
         ? prev.filter((item) => item !== documentId)
@@ -47,7 +35,7 @@ const BlogForm = ({
     );
   }
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event) {
     event.preventDefault();
     setError("");
     setIsSubmitting(true);
@@ -69,10 +57,7 @@ const BlogForm = ({
       router.refresh();
     } catch (requestError) {
       if (axios.isAxiosError(requestError)) {
-        setError(
-          (requestError.response?.data as { error?: string } | undefined)
-            ?.error || "Failed to save blog.",
-        );
+        setError(requestError.response?.data?.error || "Failed to save blog.");
       } else {
         setError("Failed to save blog.");
       }

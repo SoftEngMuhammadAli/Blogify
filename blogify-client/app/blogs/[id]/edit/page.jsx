@@ -1,12 +1,8 @@
-import BlogForm from "@/app/components/blogs/BlogForm";
+﻿import BlogForm from "@/app/components/blogs/BlogForm";
 import { fetchBlogById, fetchCategories } from "@/lib/blog-api";
 import { notFound } from "next/navigation";
 
-const EditBlogPage = async ({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) => {
+const EditBlogPage = async ({ params }) => {
   const { id } = await params;
   const [categories, blog] = await Promise.all([
     fetchCategories(),

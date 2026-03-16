@@ -1,15 +1,7 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
-interface BlogCardProps {
-  id: string;
-  title: string;
-  image?: string | null;
-  description?: string | null;
-}
-
-const BlogCard = ({ id, title, image, description }: BlogCardProps) => {
+const BlogCard = ({ id, title, image, description }) => {
   return (
     <Link href={`/blog/${id}`} className="block group">
       <article className="card relative overflow-hidden p-0 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">

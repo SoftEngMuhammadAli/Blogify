@@ -1,23 +1,12 @@
-import React from "react";
-import BlogCard from "./BlogCard";
+﻿import BlogCard from "./BlogCard";
 
-interface BlogListItem {
-  id: number;
-  documentId: string;
-  title: string;
-  description?: string | null;
-  image?: string | null;
-}
-
-interface BlogsProps {
-  blogs?: {
-    data?: BlogListItem[];
-  };
-}
-
-const Blogs = ({ blogs }: BlogsProps) => {
+const Blogs = ({ blogs }) => {
+  console.log("blogs======", blogs);
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {blogs?.data?.length === 0 && (
+        <p className="text-center text-zinc-500">No blogs found</p>
+      )}
       {blogs?.data?.map((blog) => {
         return (
           <BlogCard

@@ -1,24 +1,14 @@
-import React from "react";
-import Category from "./Category";
+﻿import Category from "./Category";
 
-interface CategoryItem {
-  id: number;
-  documentId: string;
-  title: string;
-}
-
-interface CategoriesProps {
-  categories?: {
-    data?: CategoryItem[];
-  };
-  activeCategory?: string;
-}
-
-const Categories = ({ categories, activeCategory }: CategoriesProps) => {
+const Categories = ({ categories, activeCategory }) => {
+  console.log("categories=========", categories);
+  console.log("activeCategory=========", activeCategory);
+  console.log("categories.data values=======", categories?.data);
   return (
     <div className="w-full overflow-x-auto pb-4">
       <div className="flex gap-3 w-max">
         <Category title="All" active={!activeCategory} />
+
         {categories?.data?.map((cat) => (
           <Category
             key={cat.id}

@@ -1,16 +1,11 @@
-"use client";
+﻿"use client";
 
-import axios from "axios";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import axios from "axios";
 
-interface DeleteBlogFormProps {
-  blogId: string;
-  title: string;
-}
-
-const DeleteBlogForm = ({ blogId, title }: DeleteBlogFormProps) => {
+const DeleteBlogForm = ({ blogId, title }) => {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState("");
@@ -25,10 +20,7 @@ const DeleteBlogForm = ({ blogId, title }: DeleteBlogFormProps) => {
       router.refresh();
     } catch (requestError) {
       if (axios.isAxiosError(requestError)) {
-        setError(
-          (requestError.response?.data as { error?: string } | undefined)
-            ?.error || "Failed to delete blog.",
-        );
+        setError(requestError.response?.data?.error || "Failed to delete blog.");
       } else {
         setError("Failed to delete blog.");
       }

@@ -1,13 +1,9 @@
-import DeleteBlogForm from "@/app/components/blogs/DeleteBlogForm";
+﻿import DeleteBlogForm from "@/app/components/blogs/DeleteBlogForm";
 import { fetchBlogById } from "@/lib/blog-api";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-const DeleteBlogPage = async ({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) => {
+const DeleteBlogPage = async ({ params }) => {
   const { id } = await params;
   const blog = await fetchBlogById(id);
 

@@ -1,14 +1,10 @@
-import { fetchBlogs, fetchCategories } from "@/lib/blog-api";
+﻿import { fetchBlogs, fetchCategories } from "@/lib/blog-api";
 import Link from "next/link";
 import Blogs from "./components/blogs/Blogs";
 import Categories from "./components/categories/Categories";
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: Promise<{ category?: string }>;
-}) {
-  const { category } = await searchParams;
+export default async function Home({ searchParams }) {
+  const { category } = (await searchParams) || {};
   const [categories, blogs] = await Promise.all([
     fetchCategories(),
     fetchBlogs(category),
@@ -19,9 +15,7 @@ export default async function Home({
       <section className="card flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="page-title">Latest Blogs</h1>
-          <p className="page-subtitle">
-            Explore posts by category, or manage your content.
-          </p>
+          <p className="page-subtitle">Explore posts by category, or manage your content.</p>
         </div>
         <div className="flex gap-2">
           <Link href="/blogs/manage" className="btn-secondary">
@@ -33,12 +27,10 @@ export default async function Home({
         </div>
       </section>
 
-      {/* Categories */}
       <section>
         <Categories categories={categories} activeCategory={category} />
       </section>
 
-      {/* Blog List */}
       <section>
         <Blogs blogs={blogs} />
       </section>
